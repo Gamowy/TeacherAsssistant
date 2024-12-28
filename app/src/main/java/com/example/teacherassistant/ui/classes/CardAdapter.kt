@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.databinding.TeacherClassCardBinding
 import com.example.teacherassistant.models.TeacherClass
 
-class CardAdapter(private val classes: List<TeacherClass>) : RecyclerView.Adapter<CardViewHolder>() {
+class CardAdapter(private val classes: List<TeacherClass>, private val clickListener: ClassCardClickListener) : RecyclerView.Adapter<CardViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val from = LayoutInflater.from(parent.context)
         val binding = TeacherClassCardBinding.inflate(from, parent, false)
-        return CardViewHolder(binding)
+        return CardViewHolder(binding, clickListener)
     }
 
     override fun getItemCount(): Int = classes.size

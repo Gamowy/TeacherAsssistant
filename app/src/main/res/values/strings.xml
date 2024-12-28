@@ -8,4 +8,9 @@
     <string name="class_description_placeholder">Class description</string>
     <string name="weekday_placeholder">Weekday</string>
     <string name="timestamp_placeholder">00:00 – 00:00</string>
+    <string name="class_details_placeholder">Class details</string>
+    <string name="class_label">Class:</string>
+    <string name="description_label">Description:</string>
+    <string name="when_label">When:</string>
+    <string name="when_placeholder">Weekday 00:00 – 00:00</string>
 </resources>
