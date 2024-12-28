@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_classes"
-        android:name="com.example.teacherassistant.ui.classes.ClassesFragment"
+        android:name="com.example.teacherassistant.ui.classes.ClassListFragment"
         android:label="@string/classes_lessons"
-        tools:layout="@layout/fragment_classes" />
+        tools:layout="@layout/fragment_class_list" />
 
     <fragment
         android:id="@+id/navigation_students"

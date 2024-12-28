@@ -1,14 +1,16 @@
-package com.example.teacherassistant.models
+package com.example.teacherassistant.models.room
 
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
+import com.example.teacherassistant.models.Student
+import com.example.teacherassistant.models.TeacherClass
 
 data class StudentWithClasses(
     @Embedded val student: Student,
     @Relation(
-        parentColumn = "student_id",
-        entityColumn = "class_id",
+        parentColumn = "studentId",
+        entityColumn = "classId",
         associateBy = Junction(StudentAndClass::class)
     )
     val classes: List<TeacherClass>
@@ -17,8 +19,8 @@ data class StudentWithClasses(
 data class ClassWithStudents(
     @Embedded val teacherClass: TeacherClass,
     @Relation(
-        parentColumn = "class_id",
-        entityColumn = "student_id",
+        parentColumn = "classId",
+        entityColumn = "studentId",
         associateBy = Junction(StudentAndClass::class)
     )
     val students: List<Student>

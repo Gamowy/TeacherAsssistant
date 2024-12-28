@@ -1,4 +1,4 @@
-package com.example.teacherassistant.ui.classes
+package com.example.teacherassistant.ui.classes.classdetails
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

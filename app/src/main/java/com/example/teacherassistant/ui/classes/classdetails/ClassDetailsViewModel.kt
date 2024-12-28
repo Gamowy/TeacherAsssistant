@@ -1,4 +1,4 @@
-package com.example.teacherassistant.ui.classes
+package com.example.teacherassistant.ui.classes.classdetails
 
 import androidx.lifecycle.ViewModel
 

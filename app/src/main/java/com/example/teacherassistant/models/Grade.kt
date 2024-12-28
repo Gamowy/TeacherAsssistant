@@ -6,19 +6,19 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(foreignKeys = [
-    androidx.room.ForeignKey(
+    ForeignKey(
         entity = Student::class,
-        parentColumns = ["id"],
+        parentColumns = ["studentId"],
         childColumns = ["student_id"],
         onUpdate = ForeignKey.CASCADE,
         onDelete = ForeignKey.CASCADE
     ),
-    androidx.room.ForeignKey(
+    ForeignKey(
         entity = TeacherClass::class,
-        parentColumns = ["id"],
+        parentColumns = ["classId"],
         childColumns = ["class_id"],
         onUpdate = ForeignKey.CASCADE,
-        onDelete = androidx.room.ForeignKey.CASCADE
+        onDelete = ForeignKey.CASCADE
     )
 ])
 data class Grade (

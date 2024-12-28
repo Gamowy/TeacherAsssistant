@@ -1,5 +1,6 @@
-package com.example.teacherassistant.models
+package com.example.teacherassistant.models.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
@@ -8,9 +9,9 @@ import androidx.room.Transaction
 interface StudentClassDataDao {
     @Transaction
     @Query("SELECT * FROM Student")
-    fun getStudentsWithClasses(): List<StudentWithClasses>
+    fun getStudentsWithClasses(): LiveData<List<StudentWithClasses>>
 
     @Transaction
     @Query("SELECT * FROM TeacherClass")
-    fun getClassesWithStudents(): List<ClassWithStudents>
+    fun getClassesWithStudents(): LiveData<List<ClassWithStudents>>
 }

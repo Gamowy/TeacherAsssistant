@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.example.teacherassistant.databinding.ClassDetailsBinding
-import com.example.teacherassistant.ui.classes.ClassDetailsFragment
+import com.example.teacherassistant.ui.classes.classdetails.ClassDetailsFragment
 
 class ClassActivity : AppCompatActivity() {
 

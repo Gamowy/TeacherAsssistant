@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class TeacherClass(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val classId: Int,
     @ColumnInfo(name = "class_name")val name: String,
     @ColumnInfo(name = "week_day")val weekDay: String,
     @ColumnInfo(name = "start_time")val startTime: String,

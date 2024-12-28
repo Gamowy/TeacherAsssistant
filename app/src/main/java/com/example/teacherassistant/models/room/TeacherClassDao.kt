@@ -1,9 +1,11 @@
-package com.example.teacherassistant.models
+package com.example.teacherassistant.models.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
+import com.example.teacherassistant.models.TeacherClass
 
 @Dao
 interface TeacherClassDao {
@@ -14,5 +16,5 @@ interface TeacherClassDao {
     suspend fun deleteTeacherClass(teacherClass: TeacherClass)
 
     @Query("SELECT * FROM TeacherClass ORDER BY week_day, start_time, end_time")
-    fun getTeacherClassesOrdered(): List<TeacherClass>
+    fun getTeacherClassesOrdered(): LiveData<List<TeacherClass>>
 }
