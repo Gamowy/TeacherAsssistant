@@ -8,9 +8,19 @@
     <string name="class_description_placeholder">Class description</string>
     <string name="weekday_placeholder">Weekday</string>
     <string name="timestamp_placeholder">00:00 – 00:00</string>
+    <string name="start_time_placeholder">10:00</string>
+    <string name="end_time_placeholder">12:00</string>
+    <string name="color_placeholder">Background color</string>
     <string name="class_details_placeholder">Class details</string>
     <string name="class_label">Class:</string>
     <string name="description_label">Description:</string>
+    <string name="weekday_label">Weekday:</string>
     <string name="when_label">When:</string>
+    <string name="color_label">Color:</string>
     <string name="when_placeholder">Weekday 00:00 – 00:00</string>
+    <string name="add_button">Add</string>
+    <string name="add_label">Add new class</string>
+    <string name="lesson_time">Lesson time:</string>
+    <string name="classes_empty">Class list is empty</string>
+
 </resources>

@@ -25,22 +25,25 @@ class ClassListFragment : Fragment(), ClassCardClickListener {
     ): View {
         _binding = FragmentClassListBinding.inflate(inflater, container, false)
 
-        // Bind classes from database to view model
+        // Get the list of classes from the database
         val db = AppDatabaseInstance.get(requireContext())
         val teacherClassDao = db.teacherClassDao
         val classList = teacherClassDao.getTeacherClassesOrdered()
 
+        // Observe the list of classes and update the UI when it changes
         classList.observe(viewLifecycleOwner) {
             binding.classesContainer.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = CardAdapter(it, this@ClassListFragment)
             }
+            binding.emptyLabel.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
         }
 
         val root: View = binding.root
         return root
     }
 
+    // Open the class details activity when a class card is clicked
     override fun onClick(teacherClass: TeacherClass) {
         val intent = Intent(context, ClassActivity::class.java)
         intent.putExtra("classId", teacherClass.classId)

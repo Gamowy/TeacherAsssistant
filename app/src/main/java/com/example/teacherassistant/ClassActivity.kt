@@ -45,10 +45,19 @@ class ClassActivity : AppCompatActivity() {
         // Setup app bar
         val appBar = binding.appbar
         setSupportActionBar(appBar)
-        supportActionBar?.title = "Class details"
+        supportActionBar?.apply {
+            title = "Class details"
+            setDisplayHomeAsUpEnabled(true)
+        }
+
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.nav_host_fragment_activity_class, ClassDetailsFragment())
             .commit()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

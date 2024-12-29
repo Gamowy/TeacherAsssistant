@@ -17,4 +17,7 @@ interface TeacherClassDao {
 
     @Query("SELECT * FROM TeacherClass ORDER BY week_day, start_time, end_time")
     fun getTeacherClassesOrdered(): LiveData<List<TeacherClass>>
+
+    @Query("SELECT * FROM TeacherClass WHERE classId = :classId")
+    fun getTeacherClassById(classId: Int): LiveData<TeacherClass>
 }
