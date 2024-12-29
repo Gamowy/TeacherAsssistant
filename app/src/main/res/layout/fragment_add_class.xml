@@ -5,211 +5,274 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/content"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-
-
-
-            <TextView
-                android:id="@+id/classLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/class_label"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-        <com.google.android.material.textfield.TextInputLayout
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:expandedHintEnabled="false"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxStrokeWidth="3sp"
-            >
+            android:fillViewport="true">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editClassName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/class_name_placeholder"
-                tools:ignore="VisualLintTextFieldSize,TextContrastCheck,TextContrastCheck"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/descriptionLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/description_label"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:expandedHintEnabled="false"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxStrokeWidth="3sp"
-            android:ellipsize="end"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:hint="@string/class_description_placeholder"
-                tools:ignore="VisualLintTextFieldSize,TextContrastCheck"
-
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/weekDayLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/weekday_label"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:expandedHintEnabled="false"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                app:boxStrokeWidth="3sp"
-                >
-
-
-                <AutoCompleteTextView
-                    android:id="@+id/weekDayPicker"
+                <LinearLayout
+                    android:id="@+id/content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/weekday_placeholder"
-                    android:inputType="none"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                        <TextView
+                            android:id="@+id/classLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/class_label"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:expandedHintEnabled="false"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxStrokeWidth="3sp"
+                            >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editClassName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/class_name_placeholder"
+                                android:singleLine="true"
+                                android:freezesText="true"
+                                android:imeOptions="flagNoExtractUi"
+                                tools:ignore="VisualLintTextFieldSize,TextContrastCheck,TextContrastCheck"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <TextView
+                                android:id="@+id/descriptionLabel"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/description_label"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                            />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:expandedHintEnabled="false"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxStrokeWidth="3sp"
+                            android:freezesText="true"
+                            android:ellipsize="end"
+                            >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editDescription"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:hint="@string/class_description_placeholder"
+                                android:singleLine="true"
+                                android:freezesText="true"
+                                android:imeOptions="flagNoExtractUi"
+                                tools:ignore="VisualLintTextFieldSize,TextContrastCheck"
+
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/weekDayLabel"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/weekday_label"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:expandedHintEnabled="false"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                                app:boxStrokeWidth="3sp"
+                                >
+
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/weekDayPicker"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/weekday_placeholder"
+                                    android:inputType="none"
+                                    android:ellipsize="end"
+                                    app:simpleItems="@array/weekdays"
+                                    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/startTimeLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lesson_time"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:id="@+id/startTimeLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/startTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="20dp"
+                                android:maxWidth="320dp"
+                                android:text="@string/start_time_placeholder"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="28sp"
+                                android:textStyle="bold"
+                                app:cornerRadius="30dp"
+                                app:rippleColor="@color/white" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="–"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textStyle="bold"
+                                android:textSize="42sp"
+                                android:layout_gravity="center"
+                                tools:ignore="HardcodedText" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/endTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:maxWidth="320dp"
+                                android:text="@string/end_time_placeholder"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="28sp"
+                                android:textStyle="bold"
+                                app:cornerRadius="30dp"
+                                app:rippleColor="@color/white" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/colorLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/color_label"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:expandedHintEnabled="false"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            app:boxStrokeWidth="3sp"
+                            >
+
+                            <AutoCompleteTextView
+                                android:id="@+id/backgroundColorPicker"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/color_placeholder"
+                                android:inputType="none"
+                                android:ellipsize="end"
+                                app:simpleItems="@array/cardBackgroundColors"
+                                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addClassButton"
+                    style="@style/CustomButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:ellipsize="end"
-                    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+                    android:enabled="false"
+                    android:padding="20sp"
+                    android:text="@string/add_label"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cancelButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/content"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:rippleColor="@color/white" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancelButton"
+                    style="@style/CustomButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:ellipsize="end"
+                    android:padding="20sp"
+                    android:text="@string/cancel_label"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/addClassButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/content"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:rippleColor="@color/white" />
 
-        <TextView
-            android:id="@+id/startTimeLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lesson_time"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/startTimeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/startTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start_time_placeholder"
-                android:textSize="28sp"
-                android:maxWidth="320dp"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:layout_marginEnd="20dp"
-                app:cornerRadius="30dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="–"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textStyle="bold"
-                android:textSize="42sp"
-                android:layout_gravity="center"
-                tools:ignore="HardcodedText" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/endTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/end_time_placeholder"
-                android:maxWidth="320dp"
-                android:textSize="28sp"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:layout_marginStart="20dp"
-                app:cornerRadius="30dp"
-                />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/colorLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/color_label"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:expandedHintEnabled="false"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            app:boxStrokeWidth="3sp"
-            >
-
-            <AutoCompleteTextView
-                android:id="@+id/backgroundColorPicker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/color_placeholder"
-                android:inputType="none"
-                android:ellipsize="end"
-                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addClassButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:padding="20sp"
-        android:ellipsize="end"
-        android:text="@string/add_label"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:cornerRadius="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </HorizontalScrollView>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

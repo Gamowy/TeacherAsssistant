@@ -1,6 +1,10 @@
 package com.example.teacherassistant.ui.classes
 
 import android.content.Intent
+import android.content.Intent.ACTION_EDIT
+import android.content.Intent.ACTION_GET_CONTENT
+import android.content.Intent.ACTION_INSERT
+import android.content.Intent.ACTION_VIEW
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,13 +43,20 @@ class ClassListFragment : Fragment(), ClassCardClickListener {
             binding.emptyLabel.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
         }
 
+        binding.addLessonButton.setOnClickListener {
+            val intent = Intent(context, ClassActivity::class.java)
+            intent.action = ACTION_INSERT
+            startActivity(intent)
+        }
+
         val root: View = binding.root
         return root
     }
 
     // Open the class details activity when a class card is clicked
-    override fun onClick(teacherClass: TeacherClass) {
+    override fun onCardClick(teacherClass: TeacherClass) {
         val intent = Intent(context, ClassActivity::class.java)
+        intent.action = ACTION_VIEW
         intent.putExtra("classId", teacherClass.classId)
         startActivity(intent)
     }

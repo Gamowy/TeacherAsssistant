@@ -23,6 +23,10 @@
     </style>
 
     <style name="ActionBarTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
     <style name="ActionBarTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark"/>
+
+    <style name="CustomButtonStyle" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/button_background_color</item>
+        <item name="backgroundTintMode">src_in</item>
+    </style>
 </resources>

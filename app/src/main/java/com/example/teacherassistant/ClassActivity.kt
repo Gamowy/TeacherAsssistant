@@ -1,5 +1,7 @@
 package com.example.teacherassistant
 
+import android.content.Intent.ACTION_INSERT
+import android.content.Intent.ACTION_VIEW
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
@@ -9,7 +11,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.example.teacherassistant.databinding.ClassDetailsBinding
-import com.example.teacherassistant.ui.classes.classdetails.ClassDetailsFragment
+import com.example.teacherassistant.ui.classes.AddClassFragment
+import com.example.teacherassistant.ui.classes.ClassDetailsFragment
+
 
 class ClassActivity : AppCompatActivity() {
 
@@ -18,7 +22,6 @@ class ClassActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-
         binding = ClassDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Set the padding of the root view to the system insets
@@ -46,14 +49,24 @@ class ClassActivity : AppCompatActivity() {
         val appBar = binding.appbar
         setSupportActionBar(appBar)
         supportActionBar?.apply {
-            title = "Class details"
             setDisplayHomeAsUpEnabled(true)
+            setDisplayShowTitleEnabled(true)
         }
 
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment_activity_class, ClassDetailsFragment())
-            .commit()
+        val action = intent.action
+        if (action != null) {
+            val fragmentToOpen = when (action) {
+                ACTION_INSERT -> AddClassFragment()
+                ACTION_VIEW -> ClassDetailsFragment()
+                else -> null
+            }
+            intent.action = null
+            if (fragmentToOpen != null) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment_activity_class, fragmentToOpen)
+                    .commit()
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

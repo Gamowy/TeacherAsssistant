@@ -22,11 +22,11 @@ class CardViewHolder(
         }
         teacherClassCardBinding.cardLayout.setBackgroundResource(getResource(teacherClass.backgroundId))
         teacherClassCardBinding.root.setOnClickListener {
-            clickListener.onClick(teacherClass)
+            clickListener.onCardClick(teacherClass)
         }
 
         teacherClassCardBinding.card.setOnClickListener {
-            clickListener.onClick(teacherClass)
+            clickListener.onCardClick(teacherClass)
         }
     }
 }
