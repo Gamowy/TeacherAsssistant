@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.example.teacherassistant.databinding.ClassDetailsBinding
-import com.example.teacherassistant.ui.classes.AddClassFragment
+import com.example.teacherassistant.ui.classes.AddEditClassFragment
 import com.example.teacherassistant.ui.classes.ClassDetailsFragment
 
 
@@ -24,6 +24,7 @@ class ClassActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ClassDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         // Set the padding of the root view to the system insets
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemInsets = insets.getInsets(
@@ -45,7 +46,7 @@ class ClassActivity : AppCompatActivity() {
             WindowInsetsCompat.CONSUMED
         }
 
-        // Setup app bar
+        // Setup actionbar
         val appBar = binding.appbar
         setSupportActionBar(appBar)
         supportActionBar?.apply {
@@ -53,10 +54,11 @@ class ClassActivity : AppCompatActivity() {
             setDisplayShowTitleEnabled(true)
         }
 
+        // Open fragment based on intent action
         val action = intent.action
         if (action != null) {
             val fragmentToOpen = when (action) {
-                ACTION_INSERT -> AddClassFragment()
+                ACTION_INSERT -> AddEditClassFragment()
                 ACTION_VIEW -> ClassDetailsFragment()
                 else -> null
             }

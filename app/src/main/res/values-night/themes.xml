@@ -22,7 +22,6 @@
         <item name="android:background">?attr/colorBackgroundFloating</item>
     </style>
 
-    <style name="ActionBarTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="ActionBarTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark"/>
+    <style name="ActionBarTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="ActionBarTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

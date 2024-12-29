@@ -1,41 +1,57 @@
 package com.example.teacherassistant.ui.classes
 
-
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
-import com.example.teacherassistant.databinding.FragmentAddClassBinding
+import com.example.teacherassistant.databinding.FragmentAddEditClassBinding
 import com.example.teacherassistant.models.TeacherClass
 import com.example.teacherassistant.models.room.AppDatabaseInstance
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.launch
 
-class AddClassFragment : Fragment() {
-    private var _binding: FragmentAddClassBinding? = null
+class AddEditClassFragment : Fragment() {
+    private var _binding: FragmentAddEditClassBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private var classId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddClassBinding.inflate(inflater, container, false)
+        _binding = FragmentAddEditClassBinding.inflate(inflater, container, false)
         setupStartTimePicker()
         setupEndTimePicker()
         setupEditTextListeners()
-
-
         val db = AppDatabaseInstance.get(requireContext())
         val teacherClassDao = db.teacherClassDao
+
+
+        val extras = activity?.intent?.extras
+        if (extras != null) {
+            classId = extras.getInt("classId")
+            val teacherClassLiveData = teacherClassDao.getTeacherClassById(classId)
+            teacherClassLiveData.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    val backgroundColorName = getBackgroundColorForId(it.backgroundId)
+                    binding.editClassName.setText(it.name)
+                    binding.editDescription.setText(it.description)
+                    binding.weekDayPicker.setText(it.weekDay, false)
+                    binding.startTime.text = it.startTime
+                    binding.endTime.text = it.endTime
+                    binding.backgroundColorPicker.setText(backgroundColorName, false)
+                }
+            }
+        }
+
         binding.addClassButton.setOnClickListener {
             lifecycleScope.launch {
                 val className = binding.editClassName.text.toString()
@@ -44,18 +60,17 @@ class AddClassFragment : Fragment() {
                 val startTime = binding.startTime.text.toString()
                 val endTime = binding.endTime.text.toString()
 
-                val backgroundColorId: Int =
-                    getBackgroundColorPickerPosition(binding.backgroundColorPicker.text.toString())
-                        ?: (0..5).random()
+                val backgroundColorId: Int = getIdForBackgroundColor(binding.backgroundColorPicker.text.toString()) ?: (0..6).random()
 
                 val teacherClass = TeacherClass(
+                    classId = classId,
                     name = className,
                     weekDay = weekDay,
                     startTime = startTime,
                     endTime = endTime
                 )
                 teacherClass.description = description
-                teacherClass.backgroundId = (backgroundColorId + 1)
+                teacherClass.backgroundId = backgroundColorId
                 teacherClassDao.insertTeacherClass(teacherClass)
             }
             activity?.finish()
@@ -71,6 +86,8 @@ class AddClassFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putInt("class_id", classId)
+
         outState.putString("class_name", binding.editClassName.text.toString())
         outState.putString("class_description", binding.editDescription.text.toString())
         outState.putString("weekday", binding.weekDayPicker.text.toString())
@@ -81,17 +98,15 @@ class AddClassFragment : Fragment() {
 
     override fun onViewStateRestored(savedState: Bundle?) {
         super.onViewStateRestored(savedState)
-
         savedState?.let {
-            val weekDayPosition = getWeekDayPickerPosition(it.getString("weekday"))
-            val backgroundColorPosition =
-                getBackgroundColorPickerPosition(it.getString("background_color"))
+            classId = it.getInt("class_id")
+
             binding.editClassName.setText(it.getString("class_name"))
             binding.editDescription.setText(it.getString("class_description"))
-            binding.weekDayPicker.listSelection = weekDayPosition ?: 0
+            binding.weekDayPicker.setText(it.getString("weekday"), false)
             binding.startTime.text = it.getString("start_time").toString()
             binding.endTime.text = it.getString("end_time")
-            binding.backgroundColorPicker.listSelection = backgroundColorPosition ?: 0
+            binding.backgroundColorPicker.setText(it.getString("background_color"), false)
         }
     }
 
@@ -100,27 +115,26 @@ class AddClassFragment : Fragment() {
         _binding = null
     }
 
-    private fun getWeekDayPickerPosition(weekDay: String?): Int? {
-        return when (weekDay) {
-            "Monday" -> 0
-            "Tuesday" -> 1
-            "Wednesday" -> 2
-            "Thursday" -> 3
-            "Friday" -> 4
-            "Saturday" -> 5
-            "Sunday" -> 6
+    private fun getBackgroundColorForId(colorId: Int?): String? {
+        return when (colorId) {
+             1 -> "Pink"
+             2 -> "Red"
+             3 -> "Green"
+             4 -> "Orange"
+             5 -> "Purple"
+             6 -> "Blue"
             else -> null
         }
     }
 
-    private fun getBackgroundColorPickerPosition(color: String?): Int? {
-        return when (color) {
-            "Pink" -> 0
-            "Red" -> 1
-            "Green" -> 2
-            "Orange" -> 3
-            "Purple" -> 4
-            "Blue" -> 5
+    private fun getIdForBackgroundColor(colorName: String?): Int? {
+        return when(colorName) {
+            "Pink" -> 1
+            "Red" -> 2
+            "Green" -> 3
+            "Orange" -> 4
+            "Purple" -> 5
+            "Blue" -> 6
             else -> null
         }
     }

@@ -20,8 +20,14 @@
     <string name="when_placeholder">Weekday 00:00 – 00:00</string>
     <string name="add_button">Add</string>
     <string name="add_label">Add class</string>
+    <string name="save_label">Save class</string>
     <string name="cancel_label">Cancel</string>
     <string name="lesson_time">Lesson time:</string>
     <string name="classes_empty">Class list is empty</string>
-
+    <string name="edit_label">Edit</string>
+    <string name="delete_label">Delete</string>
+    <string name="dialog_delete_title">Delete class</string>
+    <string name="dialog_delete_message">Are you sure you want to delete this class?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
