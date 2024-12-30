@@ -63,7 +63,7 @@ class ClassDetailsFragment : Fragment() {
                 return when (menuItem.itemId) {
                     R.id.menuEdit -> {
                         parentFragmentManager.beginTransaction()
-                            .replace(R.id.nav_host_fragment_activity_class, AddEditClassFragment())
+                            .replace(R.id.fragment_container_details, AddEditClassFragment())
                             .commit()
                         true
                     }

@@ -65,6 +65,9 @@ class StudentDetailsFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.menuEdit -> {
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container_details, AddEditStudentFragment())
+                            .commit()
                         true
                     }
                     R.id.menuDelete-> {

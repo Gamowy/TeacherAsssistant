@@ -21,7 +21,8 @@
     <string name="add_button">Add</string>
     <string name="add_class_label">Add class</string>
     <string name="add_student_label">Add student</string>
-    <string name="save_label">Save class</string>
+    <string name="save_class_label">Save class</string>
+    <string name="save_student_label">Save student</string>
     <string name="cancel_label">Cancel</string>
     <string name="lesson_time">Lesson time:</string>
     <string name="classes_empty">Class list is empty</string>
@@ -37,6 +38,7 @@
     <string name="student_name_placeholder">Name</string>
     <string name="student_last_name_placeholder">Lastname</string>
     <string name="student_number_placeholder">123456</string>
+    <string name="student_number_text">Number</string>
     <string name="student_image_text">Student image</string>
     <string name="student_name_label">Name:</string>
     <string name="student_last_name_label">Last name:</string>

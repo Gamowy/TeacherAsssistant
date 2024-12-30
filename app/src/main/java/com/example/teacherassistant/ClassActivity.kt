@@ -66,7 +66,7 @@ class ClassActivity : AppCompatActivity() {
             intent.action = null
             if (fragmentToOpen != null) {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_activity_class, fragmentToOpen)
+                    .replace(R.id.fragment_container_details, fragmentToOpen)
                     .commit()
             }
         }

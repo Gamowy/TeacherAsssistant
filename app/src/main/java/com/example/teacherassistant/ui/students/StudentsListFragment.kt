@@ -1,6 +1,7 @@
 package com.example.teacherassistant.ui.students
 
 import android.content.Intent
+import android.content.Intent.ACTION_INSERT
 import android.content.Intent.ACTION_VIEW
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -43,6 +44,12 @@ class StudentsListFragment : Fragment(), StudentViewClickListener {
                 adapter = StudentViewAdapter(it, this@StudentsListFragment)
             }
             binding.studentsEmptyLabel.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+        }
+
+        binding.addStudentButton.setOnClickListener {
+            val intent = Intent(context, StudentActivity::class.java)
+            intent.action = ACTION_INSERT
+            startActivity(intent)
         }
 
         val root: View = binding.root

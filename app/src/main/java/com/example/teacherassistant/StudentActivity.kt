@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.example.teacherassistant.databinding.DetailsBinding
+import com.example.teacherassistant.ui.students.AddEditStudentFragment
 import com.example.teacherassistant.ui.students.StudentDetailsFragment
 
 
@@ -58,14 +59,14 @@ class StudentActivity : AppCompatActivity() {
         val action = intent.action
         if (action != null) {
             val fragmentToOpen = when (action) {
-                ACTION_INSERT -> TODO("AddEditStudentFragment()")
+                ACTION_INSERT -> AddEditStudentFragment()
                 ACTION_VIEW -> StudentDetailsFragment()
                 else -> null
             }
             intent.action = null
             if (fragmentToOpen != null) {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_activity_class, fragmentToOpen)
+                    .replace(R.id.fragment_container_details, fragmentToOpen)
                     .commit()
             }
         }

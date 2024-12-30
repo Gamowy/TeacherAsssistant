@@ -29,10 +29,10 @@ class AddEditClassFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddEditClassBinding.inflate(inflater, container, false)
-
         setupStartTimePicker()
         setupEndTimePicker()
         setupEditTextListeners()
+
         val db = AppDatabaseInstance.get(requireContext())
         val teacherClassDao = db.teacherClassDao
 
