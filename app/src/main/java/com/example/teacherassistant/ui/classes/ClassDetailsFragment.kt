@@ -8,20 +8,26 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.teacherassistant.R
 import com.example.teacherassistant.databinding.FragmentClassDetailsBinding
+import com.example.teacherassistant.models.Student
 import com.example.teacherassistant.models.TeacherClass
 import com.example.teacherassistant.models.room.AppDatabaseInstance
+import com.example.teacherassistant.ui.students.StudentViewAdapter
+import com.example.teacherassistant.ui.students.StudentViewClickListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
-class ClassDetailsFragment : Fragment() {
+class ClassDetailsFragment : Fragment(), StudentViewClickListener {
     private var _binding: FragmentClassDetailsBinding? = null
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -33,21 +39,31 @@ class ClassDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentClassDetailsBinding.inflate(inflater, container, false)
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Class details"
+
         val db = AppDatabaseInstance.get(requireContext())
         val teacherClassDao = db.teacherClassDao
+        val studentClassDataDao = db.studentClassDataDao
         var teacherClassLiveData : LiveData<TeacherClass>? = null
-
 
         val extras = activity?.intent?.extras
         if (extras != null) {
             val classId = extras.getInt("classId")
             teacherClassLiveData = teacherClassDao.getTeacherClassById(classId)
+            val studentsLiveData = studentClassDataDao.getStudentsInClass(classId)
+
             teacherClassLiveData.observe(viewLifecycleOwner) {
                 if (it != null) {
                     val whenText = "${it.weekDay} ${it.startTime} - ${it.endTime}"
                     binding.className.text = it.name
                     binding.description.text = it.description
                     binding.time.text = whenText
+                }
+            }
+            studentsLiveData.observe(viewLifecycleOwner) {
+                binding.studentsList.apply {
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = StudentViewAdapter(it, this@ClassDetailsFragment)
                 }
             }
         }
@@ -90,8 +106,18 @@ class ClassDetailsFragment : Fragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        binding.assignStudentButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_details, PickStudentFragment())
+                .commit()
+        }
+
         val root: View = binding.root
         return root
+    }
+
+    override fun onStudentClick(student: Student) {
+        return Unit
     }
 
     override fun onDestroyView() {

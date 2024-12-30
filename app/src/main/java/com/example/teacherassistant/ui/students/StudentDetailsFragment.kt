@@ -14,15 +14,18 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.teacherassistant.R
 import com.example.teacherassistant.databinding.FragmentStudentDetailsBinding
 import com.example.teacherassistant.models.Student
 import com.example.teacherassistant.models.TeacherClass
 import com.example.teacherassistant.models.room.AppDatabaseInstance
+import com.example.teacherassistant.ui.classes.ClassCardAdapter
+import com.example.teacherassistant.ui.classes.ClassCardClickListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
-class StudentDetailsFragment : Fragment() {
+class StudentDetailsFragment : Fragment(), ClassCardClickListener {
     private var _binding: FragmentStudentDetailsBinding? = null
 
     // This property is only valid between onCreateView and
@@ -39,6 +42,7 @@ class StudentDetailsFragment : Fragment() {
 
         val db = AppDatabaseInstance.get(requireContext())
         val studentDao = db.studentDao
+        val studentClassDataDao = db.studentClassDataDao
         var studentLiveData : LiveData<Student>? = null
 
 
@@ -46,11 +50,21 @@ class StudentDetailsFragment : Fragment() {
         if (extras != null) {
             val studentId = extras.getInt("studentId")
             studentLiveData = studentDao.getStudentById(studentId)
+            val classesLiveData = studentClassDataDao.getClassesForStudent(studentId)
+
             studentLiveData.observe(viewLifecycleOwner) {
                 if (it != null) {
                     binding.firstName.text = it.name
                     binding.lastName.text = it.lastName
                     binding.studentNumber.text = it.studentNumber
+                }
+            }
+            classesLiveData.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    binding.classesContainer.apply {
+                        layoutManager = LinearLayoutManager(context)
+                        adapter = ClassCardAdapter(it, this@StudentDetailsFragment)
+                    }
                 }
             }
         }
@@ -95,6 +109,10 @@ class StudentDetailsFragment : Fragment() {
 
         val root: View = binding.root
         return root
+    }
+
+    override fun onCardClick(teacherClass: TeacherClass) {
+        return Unit
     }
 
     override fun onDestroyView() {

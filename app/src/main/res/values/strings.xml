@@ -43,4 +43,7 @@
     <string name="student_name_label">Name:</string>
     <string name="student_last_name_label">Last name:</string>
     <string name="student_number_label">Student id number:</string>
+    <string name="assign_student_label">Assign new student</string>
+    <string name="student_list_label">Enrolled students:</string>
+    <string name="classes_list_label">Classes enrolled:</string>
 </resources>

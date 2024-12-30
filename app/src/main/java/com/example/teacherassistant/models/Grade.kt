@@ -23,8 +23,8 @@ import androidx.room.PrimaryKey
 ])
 data class Grade (
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "student_id") val studentId: Int,
-    @ColumnInfo(name = "class_id") val classId: Int,
+    @ColumnInfo(name = "student_id", index = true) val studentId: Int,
+    @ColumnInfo(name = "class_id", index = true) val classId: Int,
     @ColumnInfo(name = "grade_type" )val gradeType: GradeType,
     @ColumnInfo(name = "grade") val grade: Int,
 )

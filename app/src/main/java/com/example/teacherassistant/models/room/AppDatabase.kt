@@ -7,7 +7,7 @@ import com.example.teacherassistant.models.Grade
 import com.example.teacherassistant.models.Student
 import com.example.teacherassistant.models.TeacherClass
 
-@Database(entities = [Student::class, TeacherClass::class, StudentAndClass::class, Grade::class], version = 1)
+@Database(entities = [Student::class, TeacherClass::class, StudentAndClass::class, Grade::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract val studentDao: StudentDao
     abstract val teacherClassDao: TeacherClassDao
