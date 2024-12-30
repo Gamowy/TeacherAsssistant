@@ -1,14 +1,13 @@
 package com.example.teacherassistant.ui.classes
 
 import android.content.Intent
-import android.content.Intent.ACTION_EDIT
-import android.content.Intent.ACTION_GET_CONTENT
 import android.content.Intent.ACTION_INSERT
 import android.content.Intent.ACTION_VIEW
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.teacherassistant.ClassActivity
@@ -28,6 +27,7 @@ class ClassListFragment : Fragment(), ClassCardClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentClassListBinding.inflate(inflater, container, false)
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Classes"
 
         // Get the list of classes from the database
         val db = AppDatabaseInstance.get(requireContext())
@@ -38,9 +38,9 @@ class ClassListFragment : Fragment(), ClassCardClickListener {
         classList.observe(viewLifecycleOwner) {
             binding.classesContainer.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = CardAdapter(it, this@ClassListFragment)
+                adapter = ClassCardAdapter(it, this@ClassListFragment)
             }
-            binding.emptyLabel.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+            binding.classesEmptyLabel.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
         }
 
         binding.addLessonButton.setOnClickListener {

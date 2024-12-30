@@ -17,4 +17,7 @@ interface StudentDao {
 
     @Query("SELECT * FROM Student ORDER BY last_name, first_name, student_number")
     fun getStudentsOrdered(): LiveData<List<Student>>
+
+    @Query("SELECT * FROM Student WHERE studentId = :studentId")
+    fun getStudentById(studentId: Int): LiveData<Student>
 }

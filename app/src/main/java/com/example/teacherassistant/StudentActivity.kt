@@ -11,11 +11,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.example.teacherassistant.databinding.DetailsBinding
-import com.example.teacherassistant.ui.classes.AddEditClassFragment
-import com.example.teacherassistant.ui.classes.ClassDetailsFragment
+import com.example.teacherassistant.ui.students.StudentDetailsFragment
 
 
-class ClassActivity : AppCompatActivity() {
+class StudentActivity : AppCompatActivity() {
 
     private lateinit var binding: DetailsBinding
 
@@ -53,14 +52,14 @@ class ClassActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowTitleEnabled(true)
         }
-        supportActionBar?.title = "Class Details"
+        supportActionBar?.title = "Student Details"
 
         // Open fragment based on intent action
         val action = intent.action
         if (action != null) {
             val fragmentToOpen = when (action) {
-                ACTION_INSERT -> AddEditClassFragment()
-                ACTION_VIEW -> ClassDetailsFragment()
+                ACTION_INSERT -> TODO("AddEditStudentFragment()")
+                ACTION_VIEW -> StudentDetailsFragment()
                 else -> null
             }
             intent.action = null

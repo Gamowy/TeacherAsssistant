@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_students"
-        android:name="com.example.teacherassistant.ui.students.StudentsFragment"
+        android:name="com.example.teacherassistant.ui.students.StudentsListFragment"
         android:label="@string/title_students"
-        tools:layout="@layout/fragment_students" />
+        tools:layout="@layout/fragment_students_list" />
 
     <fragment
         android:id="@+id/navigation_settings"

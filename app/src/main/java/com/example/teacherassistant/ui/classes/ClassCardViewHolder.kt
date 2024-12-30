@@ -5,7 +5,7 @@ import com.example.teacherassistant.R
 import com.example.teacherassistant.databinding.TeacherClassCardBinding
 import com.example.teacherassistant.models.TeacherClass
 
-class CardViewHolder(
+class ClassCardViewHolder(
     private val teacherClassCardBinding: TeacherClassCardBinding,
     private val clickListener: ClassCardClickListener)
     : RecyclerView.ViewHolder(teacherClassCardBinding.root)
@@ -24,7 +24,6 @@ class CardViewHolder(
         teacherClassCardBinding.root.setOnClickListener {
             clickListener.onCardClick(teacherClass)
         }
-
         teacherClassCardBinding.card.setOnClickListener {
             clickListener.onCardClick(teacherClass)
         }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import com.example.teacherassistant.databinding.FragmentAddEditClassBinding
@@ -28,12 +29,12 @@ class AddEditClassFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddEditClassBinding.inflate(inflater, container, false)
+
         setupStartTimePicker()
         setupEndTimePicker()
         setupEditTextListeners()
         val db = AppDatabaseInstance.get(requireContext())
         val teacherClassDao = db.teacherClassDao
-
 
         val extras = activity?.intent?.extras
         if (extras != null) {
@@ -50,7 +51,15 @@ class AddEditClassFragment : Fragment() {
                     binding.backgroundColorPicker.setText(backgroundColorName, false)
                 }
             }
+            activity?.intent?.removeExtra("classId")
         }
+        if (classId != 0) {
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Edit class"
+        }
+        else {
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Add class"
+        }
+
 
         binding.addClassButton.setOnClickListener {
             lifecycleScope.launch {

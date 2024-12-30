@@ -1,4 +1,4 @@
-package com.example.teacherassistant.ui.classes
+package com.example.teacherassistant.ui.students
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,20 +8,22 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.teacherassistant.R
-import com.example.teacherassistant.databinding.FragmentClassDetailsBinding
+import com.example.teacherassistant.databinding.FragmentStudentDetailsBinding
+import com.example.teacherassistant.models.Student
 import com.example.teacherassistant.models.TeacherClass
 import com.example.teacherassistant.models.room.AppDatabaseInstance
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
-class ClassDetailsFragment : Fragment() {
-    private var _binding: FragmentClassDetailsBinding? = null
+class StudentDetailsFragment : Fragment() {
+    private var _binding: FragmentStudentDetailsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -32,22 +34,23 @@ class ClassDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentClassDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentStudentDetailsBinding.inflate(inflater, container, false)
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Student Details"
+
         val db = AppDatabaseInstance.get(requireContext())
-        val teacherClassDao = db.teacherClassDao
-        var teacherClassLiveData : LiveData<TeacherClass>? = null
+        val studentDao = db.studentDao
+        var studentLiveData : LiveData<Student>? = null
 
 
         val extras = activity?.intent?.extras
         if (extras != null) {
-            val classId = extras.getInt("classId")
-            teacherClassLiveData = teacherClassDao.getTeacherClassById(classId)
-            teacherClassLiveData.observe(viewLifecycleOwner) {
+            val studentId = extras.getInt("studentId")
+            studentLiveData = studentDao.getStudentById(studentId)
+            studentLiveData.observe(viewLifecycleOwner) {
                 if (it != null) {
-                    val whenText = "${it.weekDay} ${it.startTime} - ${it.endTime}"
-                    binding.className.text = it.name
-                    binding.description.text = it.description
-                    binding.time.text = whenText
+                    binding.firstName.text = it.name
+                    binding.lastName.text = it.lastName
+                    binding.studentNumber.text = it.studentNumber
                 }
             }
         }
@@ -62,22 +65,19 @@ class ClassDetailsFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.menuEdit -> {
-                        parentFragmentManager.beginTransaction()
-                            .replace(R.id.nav_host_fragment_activity_class, AddEditClassFragment())
-                            .commit()
                         true
                     }
                     R.id.menuDelete-> {
-                        val dataToDelete: TeacherClass? = teacherClassLiveData?.value
+                        val dataToDelete: Student? = studentLiveData?.value
                         if (dataToDelete != null ) {
                             MaterialAlertDialogBuilder(requireContext())
-                                .setTitle(resources.getString(R.string.dialog_delete_class_title))
-                                .setMessage(resources.getString(R.string.dialog_delete_class_message))
+                                .setTitle(resources.getString(R.string.dialog_delete_student_title))
+                                .setMessage(resources.getString(R.string.dialog_delete_student_message))
                                 .setNegativeButton(resources.getString(R.string.no)) { _, _ ->
                                 }
                                 .setPositiveButton(resources.getString(R.string.yes)){ _, _ ->
                                     lifecycleScope.launch {
-                                        teacherClassDao.deleteTeacherClass(dataToDelete)
+                                        studentDao.deleteStudent(dataToDelete)
                                     }
                                     activity?.finish()
                                 }
