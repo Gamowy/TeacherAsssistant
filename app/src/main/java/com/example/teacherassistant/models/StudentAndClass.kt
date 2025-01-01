@@ -1,11 +1,9 @@
-package com.example.teacherassistant.models.room
+package com.example.teacherassistant.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.teacherassistant.models.Student
-import com.example.teacherassistant.models.TeacherClass
 
 @Entity(foreignKeys = [
     ForeignKey(

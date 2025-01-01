@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.teacherassistant.models.Grade
 import com.example.teacherassistant.models.Student
+import com.example.teacherassistant.models.StudentAndClass
 import com.example.teacherassistant.models.TeacherClass
 
 @Database(entities = [Student::class, TeacherClass::class, StudentAndClass::class, Grade::class], version = 1, exportSchema = false)

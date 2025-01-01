@@ -15,6 +15,6 @@ interface GradeDao {
     @Delete
     suspend fun deleteGrade(grade: Grade)
 
-    @Query("SELECT * FROM Grade WHERE student_id = :studentId AND class_id = :classId")
+    @Query("SELECT * FROM Grade WHERE student_id = :studentId AND class_id = :classId ORDER BY date(date)")
     fun getGradesForStudentIdAndClassId(studentId: Int, classId: Int): LiveData<List<Grade>>
 }

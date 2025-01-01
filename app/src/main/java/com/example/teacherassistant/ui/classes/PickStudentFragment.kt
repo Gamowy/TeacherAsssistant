@@ -13,7 +13,7 @@ import com.example.teacherassistant.R
 import com.example.teacherassistant.databinding.FragmentPickStudentBinding
 import com.example.teacherassistant.models.Student
 import com.example.teacherassistant.models.room.AppDatabaseInstance
-import com.example.teacherassistant.models.room.StudentAndClass
+import com.example.teacherassistant.models.StudentAndClass
 import com.example.teacherassistant.ui.students.StudentViewAdapter
 import com.example.teacherassistant.ui.students.StudentViewClickListener
 import kotlinx.coroutines.launch

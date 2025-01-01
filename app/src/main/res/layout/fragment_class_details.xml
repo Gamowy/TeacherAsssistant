@@ -158,6 +158,24 @@
 
                 </androidx.recyclerview.widget.RecyclerView>
 
+                <TextView
+                    android:id="@+id/enrolledStudentsEmptyLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/students_empty"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="24sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/studentListLabel"
+                    />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/assignStudentButton"
                     style="@style/CustomButtonStyle"
@@ -173,9 +191,11 @@
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:cornerRadius="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/studentsList"
+                    app:layout_constraintVertical_bias="0.0"
                     app:rippleColor="@color/white"
                     tools:ignore="TextContrastCheck" />
 

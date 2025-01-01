@@ -25,6 +25,7 @@ data class Grade (
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "student_id", index = true) val studentId: Int,
     @ColumnInfo(name = "class_id", index = true) val classId: Int,
-    @ColumnInfo(name = "grade_type" )val gradeType: GradeType,
-    @ColumnInfo(name = "grade") val grade: Int,
+    @ColumnInfo(name = "grade") val grade: String,
+    @ColumnInfo(name = "description") val description: String,
+    @ColumnInfo(name = "date") val date: String
 )

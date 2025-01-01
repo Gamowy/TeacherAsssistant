@@ -10,10 +10,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import com.example.teacherassistant.databinding.FragmentAddEditStudentBinding
 import com.example.teacherassistant.models.Student
-import com.example.teacherassistant.models.TeacherClass
 import com.example.teacherassistant.models.room.AppDatabaseInstance
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
+import com.example.teacherassistant.models.room.StudentDao
 import kotlinx.coroutines.launch
 
 class AddEditStudentFragment : Fragment() {
@@ -22,7 +20,9 @@ class AddEditStudentFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
     private var studentId: Int = 0
+    private lateinit var studentDao: StudentDao
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +33,7 @@ class AddEditStudentFragment : Fragment() {
         setupEditTextListeners()
 
         val db = AppDatabaseInstance.get(requireContext())
-        val studentDao = db.studentDao
+        studentDao = db.studentDao
 
         val extras = activity?.intent?.extras
         if (extras != null) {

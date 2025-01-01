@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -20,8 +21,11 @@ import com.example.teacherassistant.databinding.FragmentStudentDetailsBinding
 import com.example.teacherassistant.models.Student
 import com.example.teacherassistant.models.TeacherClass
 import com.example.teacherassistant.models.room.AppDatabaseInstance
+import com.example.teacherassistant.models.room.StudentClassDataDao
+import com.example.teacherassistant.models.room.StudentDao
 import com.example.teacherassistant.ui.classes.ClassCardAdapter
 import com.example.teacherassistant.ui.classes.ClassCardClickListener
+import com.example.teacherassistant.ui.grade.StudentGradesFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
@@ -32,6 +36,12 @@ class StudentDetailsFragment : Fragment(), ClassCardClickListener {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private var studentId: Int = 0
+    private lateinit var studentDao: StudentDao
+    private lateinit var studentClassDataDao: StudentClassDataDao
+
+    private lateinit var deleteDialog: AlertDialog.Builder
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,14 +51,14 @@ class StudentDetailsFragment : Fragment(), ClassCardClickListener {
         (activity as AppCompatActivity?)?.supportActionBar?.title = "Student Details"
 
         val db = AppDatabaseInstance.get(requireContext())
-        val studentDao = db.studentDao
-        val studentClassDataDao = db.studentClassDataDao
+        studentDao = db.studentDao
+        studentClassDataDao = db.studentClassDataDao
         var studentLiveData : LiveData<Student>? = null
 
 
         val extras = activity?.intent?.extras
         if (extras != null) {
-            val studentId = extras.getInt("studentId")
+            studentId = extras.getInt("studentId")
             studentLiveData = studentDao.getStudentById(studentId)
             val classesLiveData = studentClassDataDao.getClassesForStudent(studentId)
 
@@ -66,8 +76,23 @@ class StudentDetailsFragment : Fragment(), ClassCardClickListener {
                         adapter = ClassCardAdapter(it, this@StudentDetailsFragment)
                     }
                 }
+                binding.enrolledClassesEmptyLabel.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             }
         }
+
+        // Setup delete dialog
+        deleteDialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.dialog_delete_student_title))
+            .setMessage(resources.getString(R.string.dialog_delete_student_message))
+            .setNegativeButton(resources.getString(R.string.no)) { _, _ ->
+            }
+            .setPositiveButton(resources.getString(R.string.yes)){ _, _ ->
+                lifecycleScope.launch {
+                    studentLiveData?.value?.let { studentDao.deleteStudent(it) }
+                }
+                activity?.finish()
+            }
+
 
         // Setup actionbar menu
         val menuHost: MenuHost = requireActivity()
@@ -85,20 +110,8 @@ class StudentDetailsFragment : Fragment(), ClassCardClickListener {
                         true
                     }
                     R.id.menuDelete-> {
-                        val dataToDelete: Student? = studentLiveData?.value
-                        if (dataToDelete != null ) {
-                            MaterialAlertDialogBuilder(requireContext())
-                                .setTitle(resources.getString(R.string.dialog_delete_student_title))
-                                .setMessage(resources.getString(R.string.dialog_delete_student_message))
-                                .setNegativeButton(resources.getString(R.string.no)) { _, _ ->
-                                }
-                                .setPositiveButton(resources.getString(R.string.yes)){ _, _ ->
-                                    lifecycleScope.launch {
-                                        studentDao.deleteStudent(dataToDelete)
-                                    }
-                                    activity?.finish()
-                                }
-                                .show()
+                        if (studentLiveData?.value != null) {
+                            deleteDialog.show()
                         }
                         true
                     }
@@ -112,7 +125,16 @@ class StudentDetailsFragment : Fragment(), ClassCardClickListener {
     }
 
     override fun onCardClick(teacherClass: TeacherClass) {
-        return Unit
+        val bundle = Bundle()
+        bundle.putInt("studentId", studentId)
+        bundle.putInt("classId", teacherClass.classId)
+
+        val fragment = StudentGradesFragment()
+        fragment.arguments = bundle
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_details, fragment)
+            .commit()
     }
 
     override fun onDestroyView() {

@@ -14,12 +14,15 @@ import com.example.teacherassistant.ClassActivity
 import com.example.teacherassistant.databinding.FragmentClassListBinding
 import com.example.teacherassistant.models.TeacherClass
 import com.example.teacherassistant.models.room.AppDatabaseInstance
+import com.example.teacherassistant.models.room.TeacherClassDao
 
 class ClassListFragment : Fragment(), ClassCardClickListener {
     private var _binding: FragmentClassListBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private lateinit var teacherClassDao: TeacherClassDao
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +34,7 @@ class ClassListFragment : Fragment(), ClassCardClickListener {
 
         // Get the list of classes from the database
         val db = AppDatabaseInstance.get(requireContext())
-        val teacherClassDao = db.teacherClassDao
+        teacherClassDao = db.teacherClassDao
         val classList = teacherClassDao.getTeacherClassesOrdered()
 
         // Observe the list of classes and update the UI when it changes

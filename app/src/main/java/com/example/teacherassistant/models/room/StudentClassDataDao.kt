@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.example.teacherassistant.models.Student
+import com.example.teacherassistant.models.StudentAndClass
 import com.example.teacherassistant.models.TeacherClass
 
 @Dao

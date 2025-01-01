@@ -27,14 +27,17 @@
     <string name="lesson_time">Lesson time:</string>
     <string name="classes_empty">Class list is empty</string>
     <string name="students_empty">Students list is empty</string>
+    <string name="grades_empty">Grades list is empty</string>
     <string name="edit_label">Edit</string>
     <string name="delete_label">Delete</string>
     <string name="dialog_delete_class_title">Delete class</string>
+    <string name="delete">Delete</string>
     <string name="dialog_delete_class_message">Are you sure you want to delete this class?</string>
     <string name="dialog_delete_student_title">Delete student</string>
     <string name="dialog_delete_student_message">Are you sure you want to delete this student?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="ok">OK</string>
     <string name="student_name_placeholder">Name</string>
     <string name="student_last_name_placeholder">Lastname</string>
     <string name="student_number_placeholder">123456</string>
@@ -46,4 +49,10 @@
     <string name="assign_student_label">Assign new student</string>
     <string name="student_list_label">Enrolled students:</string>
     <string name="classes_list_label">Classes enrolled:</string>
+    <string name="student_grades_label">Student grades:</string>
+    <string name="grade_placeholder">5</string>
+    <string name="dialog_grade_title">Grade details</string>
+    <string name="dialog_grade_message">"Grade: %1$s\nDescription: %2$s\nDate: %3$s"</string>
+    <string name="add_grade_label">Add grade</string>
+    <string name="grade_label">Grade</string>
 </resources>

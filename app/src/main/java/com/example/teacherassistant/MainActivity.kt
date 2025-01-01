@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemInsets = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars()
-
             )
             val topInset = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars()

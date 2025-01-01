@@ -14,6 +14,7 @@ import com.example.teacherassistant.StudentActivity
 import com.example.teacherassistant.databinding.FragmentStudentsListBinding
 import com.example.teacherassistant.models.Student
 import com.example.teacherassistant.models.room.AppDatabaseInstance
+import com.example.teacherassistant.models.room.StudentDao
 
 class StudentsListFragment : Fragment(), StudentViewClickListener {
 
@@ -22,6 +23,8 @@ class StudentsListFragment : Fragment(), StudentViewClickListener {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private lateinit var studentDao: StudentDao
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +36,7 @@ class StudentsListFragment : Fragment(), StudentViewClickListener {
 
         // Get the list of students from the database
         val db = AppDatabaseInstance.get(requireContext())
-        val studentDao = db.studentDao
+        studentDao = db.studentDao
         val studentList = studentDao.getStudentsOrdered()
 
 
