@@ -4,10 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.teacherassistant.R
 import com.example.teacherassistant.databinding.FragmentSettingsBinding
+import com.example.teacherassistant.models.room.AppDatabaseInstance
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SettingsFragment : Fragment() {
 
@@ -17,21 +23,34 @@ class SettingsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var deleteDialog: AlertDialog.Builder
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this)[SettingsViewModel::class.java]
-
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val textView: TextView = binding.textSettings
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        deleteDialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.warning))
+            .setMessage(resources.getString(R.string.dialog_clear_app_data_message))
+            .setNegativeButton(resources.getString(R.string.no)) { _, _ ->
+            }
+            .setPositiveButton(resources.getString(R.string.yes)){ _, _ ->
+                val db = AppDatabaseInstance.get(requireContext())
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        db.clearAllTables()
+                    }
+                }
+            }
+
+        binding.clearData.setOnClickListener {
+            deleteDialog.show()
         }
+
+        val root: View = binding.root
         return root
     }
 

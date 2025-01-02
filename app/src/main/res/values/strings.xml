@@ -58,4 +58,7 @@
     <string name="remove_from_class_label">Remove from class</string>
     <string name="dialog_remove_from_class_message">Are you sure you want to remove this student from class?</string>
     <string name="dialog_remove_from_class_title">Remove student</string>
+    <string name="clear_app_data">Clear app data</string>>
+    <string name="warning">Warning</string>
+    <string name="dialog_clear_app_data_message">Are you sure you want to clear all app data?</string>
 </resources>
