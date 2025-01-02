@@ -105,6 +105,8 @@ class ClassDetailsFragment : Fragment(), StudentViewClickListener {
                     R.id.menuEdit -> {
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container_details, AddEditClassFragment())
+                            .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .addToBackStack(null)
                             .commit()
                         true
                     }
@@ -122,6 +124,8 @@ class ClassDetailsFragment : Fragment(), StudentViewClickListener {
         binding.assignStudentButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container_details, PickStudentFragment())
+                .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(null)
                 .commit()
         }
 
@@ -130,15 +134,17 @@ class ClassDetailsFragment : Fragment(), StudentViewClickListener {
     }
 
     override fun onStudentClick(student: Student) {
-        val bundle = Bundle()
-        bundle.putInt("studentId", student.studentId)
-        bundle.putInt("classId", classId)
+        val args = Bundle()
+        args.putInt("studentId", student.studentId)
+        args.putInt("classId", classId)
 
         val fragment = StudentGradesFragment()
-        fragment.arguments = bundle
+        fragment.arguments = args
 
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_details, fragment)
+            .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .addToBackStack(null)
             .commit()
     }
 

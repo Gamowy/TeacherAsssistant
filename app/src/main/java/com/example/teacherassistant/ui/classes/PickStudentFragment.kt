@@ -66,6 +66,8 @@ class PickStudentFragment : Fragment(), StudentViewClickListener {
         }
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_details, ClassDetailsFragment())
+            .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .addToBackStack(null)
             .commit()
     }
 

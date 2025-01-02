@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.teacherassistant.R
 import com.example.teacherassistant.databinding.FragmentStudentGradesBinding
 import com.example.teacherassistant.models.Grade
-import com.example.teacherassistant.models.TeacherClass
 import com.example.teacherassistant.models.room.AppDatabaseInstance
 import com.example.teacherassistant.models.room.GradeDao
 import com.example.teacherassistant.models.room.StudentClassDataDao
@@ -41,7 +40,7 @@ class StudentGradesFragment : Fragment(), GradeViewClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStudentGradesBinding.inflate(inflater, container, false)
-        (activity as AppCompatActivity?)?.supportActionBar?.title = "Student grades"
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Student Grades"
         val gridColumns = resources.getInteger(R.integer.grid_columns)
 
         val db = AppDatabaseInstance.get(requireContext())

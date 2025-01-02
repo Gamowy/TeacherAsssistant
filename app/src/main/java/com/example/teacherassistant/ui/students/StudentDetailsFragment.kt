@@ -106,6 +106,7 @@ class StudentDetailsFragment : Fragment(), ClassCardClickListener {
                     R.id.menuEdit -> {
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container_details, AddEditStudentFragment())
+                            .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commit()
                         true
                     }
@@ -134,6 +135,8 @@ class StudentDetailsFragment : Fragment(), ClassCardClickListener {
 
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_details, fragment)
+            .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .addToBackStack(null)
             .commit()
     }
 
