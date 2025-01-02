@@ -55,4 +55,7 @@
     <string name="dialog_grade_message">"Grade: %1$s\nDescription: %2$s\nDate: %3$s"</string>
     <string name="add_grade_label">Add grade</string>
     <string name="grade_label">Grade</string>
+    <string name="remove_from_class_label">Remove from class</string>
+    <string name="dialog_remove_from_class_message">Are you sure you want to remove this student from class?</string>
+    <string name="dialog_remove_from_class_title">Remove student</string>
 </resources>

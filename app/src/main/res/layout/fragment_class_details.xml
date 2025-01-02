@@ -152,9 +152,13 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintBottom_toTopOf="@+id/assignStudentButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/studentListLabel">
+                    app:layout_constraintTop_toBottomOf="@+id/studentListLabel"
+                    app:layout_constraintVertical_bias="0.0">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -168,7 +172,6 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textSize="24sp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -181,7 +184,7 @@
                     style="@style/CustomButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:backgroundTint="@color/green"
                     android:ellipsize="end"
                     android:padding="20sp"
@@ -194,8 +197,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/studentsList"
-                    app:layout_constraintVertical_bias="0.0"
                     app:rippleColor="@color/white"
                     tools:ignore="TextContrastCheck" />
 

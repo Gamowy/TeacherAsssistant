@@ -2,6 +2,7 @@ package com.example.teacherassistant.models.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 import com.example.teacherassistant.models.Student
@@ -12,6 +13,9 @@ import com.example.teacherassistant.models.TeacherClass
 interface StudentClassDataDao {
     @Upsert
     suspend fun insertStudentClassData(studentAndClass: StudentAndClass)
+
+    @Query("DELETE FROM StudentAndClass WHERE student_id = :studentId AND class_id = :classId")
+    suspend fun deleteStudentClassDataById(studentId: Int, classId: Int)
 
     @Query("SELECT * FROM Student WHERE studentId IN (SELECT student_id FROM StudentAndClass WHERE class_id = :classId)")
     fun getStudentsInClass(classId: Int): LiveData<List<Student>>

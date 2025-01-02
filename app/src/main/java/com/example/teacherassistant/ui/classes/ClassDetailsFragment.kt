@@ -75,6 +75,7 @@ class ClassDetailsFragment : Fragment(), StudentViewClickListener {
                     layoutManager = LinearLayoutManager(context)
                     adapter = StudentViewAdapter(it, this@ClassDetailsFragment)
                 }
+                binding.enrolledStudentsEmptyLabel.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             }
         }
 

@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.teacherassistant.R
 import com.example.teacherassistant.databinding.FragmentStudentGradesBinding
 import com.example.teacherassistant.models.Grade
+import com.example.teacherassistant.models.TeacherClass
 import com.example.teacherassistant.models.room.AppDatabaseInstance
 import com.example.teacherassistant.models.room.GradeDao
+import com.example.teacherassistant.models.room.StudentClassDataDao
 import com.example.teacherassistant.models.room.StudentDao
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
@@ -28,6 +30,8 @@ class StudentGradesFragment : Fragment(), GradeViewClickListener {
 
     private lateinit var studentDao: StudentDao
     private lateinit var gradesDao: GradeDao
+    private lateinit var studentClassDataDao: StudentClassDataDao
+
 
     private lateinit var gradeDetailsDialog: MaterialAlertDialogBuilder
 
@@ -38,16 +42,19 @@ class StudentGradesFragment : Fragment(), GradeViewClickListener {
     ): View {
         _binding = FragmentStudentGradesBinding.inflate(inflater, container, false)
         (activity as AppCompatActivity?)?.supportActionBar?.title = "Student grades"
+        val gridColumns = resources.getInteger(R.integer.grid_columns)
 
         val db = AppDatabaseInstance.get(requireContext())
         studentDao = db.studentDao
         gradesDao = db.gradeDao
+        studentClassDataDao = db.studentClassDataDao
 
         if (arguments != null) {
             val classId = arguments?.getInt("classId") ?: 0
             val studentId = arguments?.getInt("studentId") ?: 0
             val studentLiveData = studentDao.getStudentById(studentId)
             val gradesLiveData = gradesDao.getGradesForStudentIdAndClassId(studentId, classId)
+
 
             studentLiveData.observe(viewLifecycleOwner) {
                 if (it != null) {
@@ -60,7 +67,7 @@ class StudentGradesFragment : Fragment(), GradeViewClickListener {
             gradesLiveData.observe(viewLifecycleOwner) {
                 if (it != null) {
                     binding.gradesContainer.apply {
-                        layoutManager = GridLayoutManager(context, 4)
+                        layoutManager = GridLayoutManager(context, gridColumns)
                         adapter = GradeViewAdapter(it, this@StudentGradesFragment)
                     }
                 }
@@ -91,6 +98,23 @@ class StudentGradesFragment : Fragment(), GradeViewClickListener {
                     }
                     .setNegativeButton(resources.getString(R.string.cancel_label)){ _, _ -> }
                     .show()
+            }
+            binding.removeFromClassButton.setOnClickListener {
+                lifecycleScope.launch {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(resources.getString(R.string.dialog_remove_from_class_title))
+                        .setMessage(resources.getString(R.string.dialog_remove_from_class_message))
+                        .setNegativeButton(resources.getString(R.string.no)) { _, _ ->
+                        }
+                        .setPositiveButton(resources.getString(R.string.yes)){ _, _ ->
+                            lifecycleScope.launch {
+                                gradesDao.deleteGradesById(studentId, classId)
+                                studentClassDataDao.deleteStudentClassDataById(studentId, classId)
+                            }
+                            activity?.finish()
+                        }
+                        .show()
+                }
             }
         }
         val root: View = binding.root
