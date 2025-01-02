@@ -1,10 +1,13 @@
 package com.example.teacherassistant.ui.settings
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.teacherassistant.R
@@ -25,12 +28,38 @@ class SettingsFragment : Fragment() {
 
     private lateinit var deleteDialog: AlertDialog.Builder
 
+    private lateinit var preferences: SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        binding.themePicker.threshold = 100
+
+        preferences = requireActivity().getSharedPreferences("settings", 0)
+        val theme = AppCompatDelegate.getDefaultNightMode()
+        when (theme) {
+            AppCompatDelegate.MODE_NIGHT_YES -> binding.themePicker.setText(resources.getStringArray(R.array.themeList)[2])
+            AppCompatDelegate.MODE_NIGHT_NO -> binding.themePicker.setText(resources.getStringArray(R.array.themeList)[1])
+            else -> binding.themePicker.setText(resources.getStringArray(R.array.themeList)[0])
+        }
+
+        binding.themePicker.onItemClickListener = AdapterView.OnItemClickListener{ _, _, _, _ ->
+            val value = binding.themePicker.text.toString()
+            when (value) {
+                resources.getStringArray(R.array.themeList)[2] -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+                resources.getStringArray(R.array.themeList)[1] -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+                resources.getStringArray(R.array.themeList)[0] -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                }
+            }
+        }
 
         deleteDialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.warning))
@@ -55,6 +84,7 @@ class SettingsFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        preferences.edit().putInt("theme", AppCompatDelegate.getDefaultNightMode()).apply()
         super.onDestroyView()
         _binding = null
     }

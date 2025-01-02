@@ -27,6 +27,38 @@
                 android:layout_margin="16dp"
                 >
 
+                <TextView
+                    android:id="@+id/studentNameLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/theme_label"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeWidth="3sp"
+                    app:expandedHintEnabled="false">
+
+
+                    <AutoCompleteTextView
+                        android:id="@+id/themePicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:completionThreshold="1000"
+                        android:ellipsize="end"
+                        android:hint="@string/theme_placeholder"
+                        android:inputType="none"
+                        app:simpleItems="@array/themeList"
+                        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/clearData"
                     style="@style/CustomButtonStyle"
@@ -48,7 +80,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:rippleColor="@color/white"
-                    tools:ignore="TextContrastCheck" />
+                    tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
             </LinearLayout>
         </HorizontalScrollView>

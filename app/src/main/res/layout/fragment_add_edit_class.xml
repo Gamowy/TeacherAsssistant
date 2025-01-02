@@ -124,8 +124,10 @@
                             android:ellipsize="end"
                             android:hint="@string/weekday_placeholder"
                             android:inputType="none"
+                            android:completionThreshold="1000"
                             app:simpleItems="@array/weekdays"
-                            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+                            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize"
+                            />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

@@ -61,4 +61,6 @@
     <string name="clear_app_data">Clear app data</string>>
     <string name="warning">Warning</string>
     <string name="dialog_clear_app_data_message">Are you sure you want to clear all app data?</string>
+    <string name="theme_label">Theme:</string>
+    <string name="theme_placeholder">Theme</string>
 </resources>

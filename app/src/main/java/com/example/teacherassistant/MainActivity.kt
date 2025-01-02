@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -61,5 +62,10 @@ class MainActivity : AppCompatActivity() {
             )
         )
         appBar.setupWithNavController(navController, appBarConfiguration)
+
+        // Set theme
+        val preferences = getSharedPreferences("settings", 0)
+        val theme = preferences.getInt("theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        AppCompatDelegate.setDefaultNightMode(theme)
     }
 }

@@ -32,6 +32,9 @@ class AddEditClassFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddEditClassBinding.inflate(inflater, container, false)
+        binding.weekDayPicker.threshold = 100
+        binding.backgroundColorPicker.threshold = 100
+
         setupStartTimePicker()
         setupEndTimePicker()
         setupEditTextListeners()
