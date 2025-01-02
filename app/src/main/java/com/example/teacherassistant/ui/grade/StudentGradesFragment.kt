@@ -98,6 +98,7 @@ class StudentGradesFragment : Fragment(), GradeViewClickListener {
                     .setNegativeButton(resources.getString(R.string.cancel_label)){ _, _ -> }
                     .show()
             }
+
             binding.removeFromClassButton.setOnClickListener {
                 lifecycleScope.launch {
                     MaterialAlertDialogBuilder(requireContext())
@@ -110,7 +111,7 @@ class StudentGradesFragment : Fragment(), GradeViewClickListener {
                                 gradesDao.deleteGradesById(studentId, classId)
                                 studentClassDataDao.deleteStudentClassDataById(studentId, classId)
                             }
-                            activity?.finish()
+                            activity?.onBackPressedDispatcher?.onBackPressed()
                         }
                         .show()
                 }
